@@ -1,0 +1,32 @@
+// 코드1: 프로젝트의 플러그인 의존성 관리 위한 설정
+buildscript{
+    ext {
+        springBootVersion = '2.7.1' //RELEASE를 빼자..
+    }
+    repositories {
+        mavenCentral()
+        //jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+// 코드2: 플러그인 의존성들을 적용할 것인지 결정
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+//코드3: 의존성들을 어떤 원격 저장소에서 받을지 정함 + 의존성 선언
+repositories{
+    mavenCentral()
+    //jcenter()
+}
+dependencies {
+    //compile, testCompile method가 Deprecate 됨: 오류 발생
+    //compile('org.springframework.boot:spring-boot-starter-web')
+    //testCompile('org.springframework.boot:spring-boot-starter-test')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
